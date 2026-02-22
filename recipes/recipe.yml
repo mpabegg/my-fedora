@@ -6,8 +6,8 @@ name: my-fedora
 description: This is my personal OS image.
 
 # the base image to build on top of (FROM) and the version tag to use
-base-image: ghcr.io/ublue-os/silverblue-main
-image-version: 42 # latest is also supported if you want new updates ASAP
+base-image: quay.io/fedora-ostree-desktops/cosmic-atomic
+image-version: 43
 
 # module configuration, executed in order
 # you can include multiple instances of the same module
@@ -17,29 +17,92 @@ modules:
       - source: system
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
 
+  - type: brew
+    brew-analytics: false
+
+  - type: systemd
+    system:
+      masked:
+        - rpm-ostreed-automatic.timer
+      enabled:
+        - bootc-fetch-apply-updates.timer
+
   - type: dnf
     repos:
-      copr:
-        - atim/starship
+      nonfree: negativo17
+    replace:
+      - from-repo: fedora-multimedia
+        skip-unavailable: true
+        packages:
+          - libva
+          - mesa-dri-drivers
+          - mesa-filesystem
+          - mesa-libEGL
+          - mesa-libGL
+          - mesa-libgbm
+          - mesa-va-drivers
+          - mesa-vulkan-drivers
+          - libheif
+
+  - type: dnf
     install:
       packages:
-        - micro
-        - starship
+        - libopenjph
+        - repo: fedora-multimedia
+          packages:
+            - libva-utils
+            - pipewire-libs-extra
+            - heif-pixbuf-loader
+    replace:
+      - from-repo: fedora-multimedia
+        packages:
+          - old: ffmpeg-free
+            new: ffmpeg
+          - old: libfdk-aac-free
+            new: libfdk-aac
+          - old: libavcodec-free
+            new: libavcodec
+      - from-repo: fedora
+        install-weak-deps: false
+        packages:
+          - old: OpenCL-ICD-Loader
+            new: ocl-icd
+
+  - type: dnf
+    repos:
+      cleanup: true
+      copr:
+        - ublue-os/packages
+    install:
+      skip-unavailable: true
+      packages:
+        - bootc
+        - distrobox
+        - lshw
+        - nvme-cli
+        - openssh-askpass
+        - smartmontools
+        - wl-clipboard
+        - wireguard-tools
+        - xdg-terminal-exec
+        - zsh
     remove:
       packages:
-        # example: removing firefox (in favor of the flatpak)
-        # "firefox" is the main package, "firefox-langpacks" is a dependency
         - firefox
-        - firefox-langpacks # also remove firefox dependency (not required for all packages, this is a special case)
+        - firefox-langpacks
+        - fedora-flathub-remote
+        - fedora-third-party
+        - fedora-workstation-repositories
 
   - type: default-flatpaks
     configurations:
-      - notify: true # Send notification after install/uninstall is finished (true/false)
-        scope: system
-        # If no repo information is specified, Flathub will be used by default
-        install: # system flatpaks we want all users to have and not remove
-          - org.mozilla.firefox
-          - org.gnome.Loupe
-      - scope: user # Also add Flathub user repo, but no user packages
+      - notify: false
+        scope: user
+        repo:
+          name: flathub
+          title: Flathub
 
-  - type: signing # this sets up the proper policy & signing files for signed images to work fully
+  - type: files
+    files:
+      - source: cosmic-defaults
+        destination: /
