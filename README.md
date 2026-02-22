@@ -11,6 +11,8 @@ After setup, it is recommended you update this README to describe your custom im
 
 To rebase an existing atomic Fedora installation to the latest build:
 
+### COSMIC image (`ghcr.io/mpabegg/my-fedora`)
+
 - First rebase to the unsigned image, to get the proper signing keys and policies installed:
   ```
   rpm-ostree rebase ostree-unverified-registry:ghcr.io/mpabegg/my-fedora:latest
@@ -23,12 +25,31 @@ To rebase an existing atomic Fedora installation to the latest build:
   ```
   rpm-ostree rebase ostree-image-signed:docker://ghcr.io/mpabegg/my-fedora:latest
   ```
-- Reboot again to complete the installation
+- Reboot again to complete the installation:
   ```
   systemctl reboot
   ```
 
-The `latest` tag will automatically point to the latest build. That build will still always use the Fedora version specified in `recipe.yml`, so you won't get accidentally updated to the next major version.
+### KDE image (`ghcr.io/mpabegg/my-fedora-kde`)
+
+- First rebase to the unsigned image, to get the proper signing keys and policies installed:
+  ```
+  rpm-ostree rebase ostree-unverified-registry:ghcr.io/mpabegg/my-fedora-kde:latest
+  ```
+- Reboot to complete the rebase:
+  ```
+  systemctl reboot
+  ```
+- Then rebase to the signed image, like so:
+  ```
+  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/mpabegg/my-fedora-kde:latest
+  ```
+- Reboot again to complete the installation:
+  ```
+  systemctl reboot
+  ```
+
+The `latest` tag for each image will automatically point to that image's latest build. Each build still uses the Fedora version specified in its corresponding recipe, so you won't get accidentally updated to the next major version.
 
 ## ISO
 
