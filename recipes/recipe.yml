@@ -72,12 +72,15 @@ modules:
     repos:
       cleanup: true
       copr:
+        - alternateved/keyd
         - ublue-os/packages
     install:
       skip-unavailable: true
       packages:
+        - 1password
         - bootc
         - distrobox
+        - keyd
         - lshw
         - nvme-cli
         - openssh-askpass
@@ -101,6 +104,11 @@ modules:
         repo:
           name: flathub
           title: Flathub
+
+  - type: systemd
+    system:
+      enabled:
+        - keyd.service
 
   - type: files
     files:
