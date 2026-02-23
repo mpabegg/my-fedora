@@ -73,6 +73,7 @@ modules:
       cleanup: true
       copr:
         - alternateved/keyd
+        - alternateved/ghostty
         - ublue-os/packages
     install:
       skip-unavailable: true
@@ -81,6 +82,7 @@ modules:
         - bootc
         - distrobox
         - keyd
+        - ghostty
         - lshw
         - nvme-cli
         - openssh-askpass
@@ -89,29 +91,14 @@ modules:
         - wireguard-tools
         - xdg-terminal-exec
         - zsh
-        - bat
-        - eza
-        - fzf
         - git-credential-libsecret
-        - helix
-        - htop
-        - just
-        - lazygit
-        - neovim
         - python3-neovim
-        - ripgrep
         - symlinks
-        - tmux
-        - vim
-        - yazi
-        - zoxide
         - fuse
         - squashfs-tools
         - ublue-os-udev-rules
     remove:
       packages:
-        - firefox
-        - firefox-langpacks
         - fedora-flathub-remote
         - fedora-third-party
         - fedora-workstation-repositories
