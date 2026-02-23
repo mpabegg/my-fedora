@@ -11,11 +11,11 @@ After setup, it is recommended you update this README to describe your custom im
 
 To rebase an existing atomic Fedora installation to the latest build:
 
-### COSMIC image (`ghcr.io/mpabegg/my-fedora`)
+### COSMIC image (`ghcr.io/mpabegg/fedora-cosmic`)
 
 - First rebase to the unsigned image, to get the proper signing keys and policies installed:
   ```
-  rpm-ostree rebase ostree-unverified-registry:ghcr.io/mpabegg/my-fedora:latest
+  rpm-ostree rebase ostree-unverified-registry:ghcr.io/mpabegg/fedora-cosmic:latest
   ```
 - Reboot to complete the rebase:
   ```
@@ -23,18 +23,18 @@ To rebase an existing atomic Fedora installation to the latest build:
   ```
 - Then rebase to the signed image, like so:
   ```
-  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/mpabegg/my-fedora:latest
+  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/mpabegg/fedora-cosmic:latest
   ```
 - Reboot again to complete the installation:
   ```
   systemctl reboot
   ```
 
-### KDE image (`ghcr.io/mpabegg/my-fedora-kde`)
+### KDE image (`ghcr.io/mpabegg/fedora-kde`)
 
 - First rebase to the unsigned image, to get the proper signing keys and policies installed:
   ```
-  rpm-ostree rebase ostree-unverified-registry:ghcr.io/mpabegg/my-fedora-kde:latest
+  rpm-ostree rebase ostree-unverified-registry:ghcr.io/mpabegg/fedora-kde:latest
   ```
 - Reboot to complete the rebase:
   ```
@@ -42,7 +42,7 @@ To rebase an existing atomic Fedora installation to the latest build:
   ```
 - Then rebase to the signed image, like so:
   ```
-  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/mpabegg/my-fedora-kde:latest
+  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/mpabegg/fedora-kde:latest
   ```
 - Reboot again to complete the installation:
   ```
@@ -60,5 +60,5 @@ If build on Fedora Atomic, you can generate an offline ISO with the instructions
 These images are signed with [Sigstore](https://www.sigstore.dev/)'s [cosign](https://github.com/sigstore/cosign). You can verify the signature by downloading the `cosign.pub` file from this repo and running the following command:
 
 ```bash
-cosign verify --key cosign.pub ghcr.io/mpabegg/my-fedora
+cosign verify --key cosign.pub ghcr.io/mpabegg/fedora-cosmic
 ```
