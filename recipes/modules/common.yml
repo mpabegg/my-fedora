@@ -15,7 +15,7 @@ modules:
         - Monaspace
       url-fonts:
         - name: Monaspace-Variable
-          url: https://github.com/githubnext/monaspace/releases/latest/download/monaspace-v1.200.zip
+          url: https://github.com/githubnext/monaspace/releases/download/v1.301/monaspace-variable-v1.301.zip
 
   - type: brew
     brew-analytics: false
