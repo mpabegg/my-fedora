@@ -28,6 +28,11 @@ disk-usage:
     @echo "=== Disk Usage ==="
     @df -h / /var
 
+# Install Homebrew packages declared in the image Brewfile without upgrading unrelated packages
+brew-bundle-install:
+    @echo "Installing Homebrew packages from /usr/share/ublue-os/brew/Brewfile..."
+    brew bundle install --file /usr/share/ublue-os/brew/Brewfile --no-upgrade
+
 # Rebase to a different image (e.g., just rebase ghcr.io/user/image:tag)
 rebase IMAGE:
     @echo "Rebasing to {{ IMAGE }}..."
