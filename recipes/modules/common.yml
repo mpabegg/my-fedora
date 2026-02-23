@@ -2,7 +2,20 @@ modules:
   - type: files
     files:
       - source: system
-        destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
+        destination: /
+
+  - type: justfiles
+    include:
+      - 10-system.just
+      - 20-virtualization.just
+
+  - type: fonts
+    fonts:
+      nerd-fonts:
+        - Monaspace
+      url-fonts:
+        - name: Monaspace-Variable
+          url: https://github.com/githubnext/monaspace/releases/latest/download/monaspace-v1.200.zip
 
   - type: brew
     brew-analytics: false
@@ -76,6 +89,25 @@ modules:
         - wireguard-tools
         - xdg-terminal-exec
         - zsh
+        - bat
+        - eza
+        - fzf
+        - git-credential-libsecret
+        - helix
+        - htop
+        - just
+        - lazygit
+        - neovim
+        - python3-neovim
+        - ripgrep
+        - symlinks
+        - tmux
+        - vim
+        - yazi
+        - zoxide
+        - fuse
+        - squashfs-tools
+        - ublue-os-udev-rules
     remove:
       packages:
         - firefox
