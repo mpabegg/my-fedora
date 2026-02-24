@@ -24,6 +24,7 @@ modules:
     system:
       masked:
         - rpm-ostreed-automatic.timer
+        - flatpak-add-fedora-repos.service
       enabled:
         - bootc-fetch-apply-updates.timer
 
@@ -81,6 +82,7 @@ modules:
         - 1password
         - bootc
         - distrobox
+        - tailscale
         - keyd
         - ghostty
         - lshw
@@ -96,7 +98,9 @@ modules:
         - symlinks
         - fuse
         - squashfs-tools
+        - ublue-os-just
         - ublue-os-udev-rules
+        - uupd
     remove:
       packages:
         - fedora-flathub-remote
@@ -114,4 +118,8 @@ modules:
   - type: systemd
     system:
       enabled:
+        - flatpak-nuke-fedora.service
         - keyd.service
+        - rpm-ostree-countme.timer
+        - tailscaled.service
+        - uupd.timer
